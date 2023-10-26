@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterActivity2 extends AppCompatActivity {
 
@@ -44,28 +46,49 @@ public class RegisterActivity2 extends AppCompatActivity {
                 String email = edEmail.getText().toString();
                 String password = edPassword.getText().toString();
                 String confirm = edConfirm.getText().toString();
-                Database db = new Database(getApplicationContext(),"HealthLink",null,1);
-                if (username.length()==0 || email.length()==0 || password.length()==0 || confirm.length()==0){
-                    Toast.makeText(getApplicationContext(),"Please fill required details",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    if(password.compareTo(confirm)==0){
-                        if(isValid(password)){
-                            db.register(username,email,password);
-                            Toast.makeText(getApplicationContext(),"Registration Successful",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(RegisterActivity2.this,LoginActivity.class));
-                        }else{
-                            Toast.makeText(getApplicationContext(),"password must contain atleast 8 characters having a letter,digit & special character ",Toast.LENGTH_SHORT).show();
+                Database db = new Database(getApplicationContext(), "HealthLink", null, 1);
+
+                if (username.length() == 0 || email.length() == 0 || password.length() == 0 || confirm.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "Please fill required details", Toast.LENGTH_SHORT).show();
+                }else{
+                    if (isValidEmail(email)) {
+                        if (password.compareTo(confirm) == 0) {
+                            if (isValid(password)) {
+                                db.register(username,email,password);
+
+                                Toast.makeText(getApplicationContext(),"Registration Successful",Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(RegisterActivity2.this,LoginActivity.class));
+                            } else {
+                                Toast.makeText(getApplicationContext(),"Password must contain atleast 8 chars,having a letter,digit,special char",Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(),"Confirm Password didn't match",Toast.LENGTH_LONG).show();
                         }
                     } else {
-                        Toast.makeText(getApplicationContext(),"Confirm Password didn't match",Toast.LENGTH_SHORT).show();
-                    }
+                        Toast.makeText(getApplicationContext(),"Email is invalid",Toast.LENGTH_LONG).show();
 
+
+                    }
                 }
 
 
             }
+
         });
+    }
+
+    public static boolean isValidEmail(String emailhere) {
+        // Regular expression pattern for a basic email format
+        String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
+
+        // Create a Pattern object
+        Pattern pattern = Pattern.compile(emailPattern);
+
+        // Create a Matcher object
+        Matcher matcher = pattern.matcher(emailhere);
+
+        // Check if the email matches the pattern
+        return matcher.matches();
     }
     public static boolean isValid(String passwordhere){
         int f1=0,f2=0,f3=0;
@@ -91,6 +114,12 @@ public class RegisterActivity2 extends AppCompatActivity {
             if(f1==1 && f2==1 && f3==1)
                 return true;
             return false;
-        }
-    }
+       }
+}
+
+
+
+
+
+
 }
