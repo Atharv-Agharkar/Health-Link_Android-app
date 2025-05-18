@@ -46,23 +46,3 @@ New users can register with personal and medical information.
 | 💾 Database  | SQLite             |
 | 🎨 UI/UX     | XML (Android Views) |
 
----
-
-## 🧠 Future Enhancements
-- 🔔 Push Notifications for appointments and test results  
-- 🧾 Invoice generation and download  
-- 🌐 Online doctor consultation via video call  
-- 🔒 Biometric login support  
-
----
-
-## 👨‍💻 Author
-
-**Atharva** (Garou)  
-_Computer Engineering Student | Passionate about healthcare tech solutions_
-
-🔗 [LinkedIn](https://www.linkedin.com) &nbsp; | &nbsp; 📫 garou@example.com
-
----
-
-> *"Empowering health through technology."*
